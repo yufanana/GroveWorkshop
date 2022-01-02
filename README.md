@@ -1,12 +1,13 @@
 # GroveWorkshop
-Sample Arduino code with Grove modules for EPD IAP Workshop Jan 2022.
+Sample Arduino code with Grove modules for EPD IAP Workshop Jan 2022
 
-Programming notes have also been compiled in the 2nd half of this README.md
+*__Happy New Year!! :D__*
 
-## Happy New Year!!
-
-Refer to the top of the file for the pin allocation. <br>
+1. The Grove sensors/modules available have been split up into the 6 sets. Refer to the top of the file for the pin allocation.
 The full versions are complete and should be uploadable onto the Arduino after connecting the pins correctly.
+2. Programming notes have also been compiled in the 2nd half of this README.md
+3. The demo codes illustrate the differences between python and c++ programming.
+
 
 ____
 
