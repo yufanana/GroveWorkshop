@@ -10,10 +10,10 @@
 #include <Servo.h>
 
 // set pin numbers
-#define servoPin ...      // number of the servo pin
-#define tiltPin ...       // number of the tilt sensor pin
-#define vibrationPin ...  // nubmer of the vibration sensor pin
-#define magnetPin ...     // number of the magnetic switch pin
+#define servoPin 6      // number of the servo pin
+#define tiltPin 2       // number of the tilt sensor pin
+#define vibrationPin 3  // nubmer of the vibration sensor pin
+#define magnetPin 4     // number of the magnetic switch pin
 
 // set helpful values
 #define FULL_SERVO_ANGLE 150  //full value of the servo is 150 degrees
@@ -33,10 +33,10 @@ Servo myServo;  // create servo object to control a servo
 */
 void setup()
 {
-  Serial.begin(...);         // choose 9600 baud rate for serial monitor
+  Serial.begin(9600);         // choose 9600 baud rate for serial monitor
   
-  pinMode(tiltPin, ...);    // initialize the tilt pin as an input
-  pinMode(..., ...);  // initialize the magnet pin as an input
+  pinMode(tiltPin, INPUT);    // initialize the tilt pin as an input
+  pinMode(magnetPin, INPUT);  // initialize the magnet pin as an input
   myServo.attach(servoPin);   // attaches the servo on servoPin to the servo object
 }
 
@@ -52,7 +52,7 @@ void loop()
   readVibration();
 
   servoControl(tilt);
-  delay(...);         // delay by 200ms
+  delay(200);         // delay by 200ms
 }
 
 /*
@@ -66,10 +66,10 @@ void servoControl(bool tilt)
 {
   if (tilt && pos <= FULL_SERVO_ANGLE)
   {
-    ...;       // increase servo position by 5 degrees
+    pos += 5;       // increase servo position by 5 degrees
   } else if (!tilt && pos >= 0)
   {
-    ...       // decrease servo position by 5 degrees
+    pos -= 5;       // decrease servo position by 5 degrees
   }
 
   if(isNearMagnet())
@@ -102,7 +102,7 @@ void servoControl(bool tilt)
 */
 bool isTilt()
 {
-  return ...;  // read the tilt sensor
+  return digitalRead(tiltPin);  // read the tilt sensor
 }
 
 /*
@@ -116,7 +116,7 @@ void readVibration()
   // output HIGH when module is stable
   // output LOW when module is moving
 
-  vibrate = ...;  // read the vibration sensor
+  vibrate = digitalRead(vibrationPin);  // read the vibration sensor
 
   if (vibrate)
   {
@@ -134,14 +134,14 @@ void readVibration()
 */
 bool isNearMagnet()
 {
-   int sensorValue = ...;  // read the magnet switch
+   int sensorValue = digitalRead(magnetPin);  // read the magnet switch
    
    if(sensorValue == HIGH)//if the sensor value is HIGH
     {
-        return ...;
+        return true;
     }
     else
     {
-        return ...;
+        return false;
     }
 }

@@ -10,10 +10,10 @@
 #include <Servo.h>
 
 // set pin numbers
-#define LED ...                   // number of the LED pin
-#define linePin ...               // number of the lineFinder pin
-#define waterPin ...              // number of the waterSensor pin
-#define servoPin ...              // number of the servo pin
+#define LED 2                   // number of the LED pin
+#define linePin 3               // number of the lineFinder pin
+#define waterPin 4              // number of the waterSensor pin
+#define servoPin 6              // number of the servo pin
 
 // set helpful values
 #define FULL_SERVO_ANGLE 150  //full value of the servo is 150 degrees
@@ -25,31 +25,26 @@ bool dry = true;
 
 Servo myServo;  // create servo object to control a servo
 
-/*
-    Initial set up function to set pin modes and serial monitor.
-
-    @param
-    @return null
-*/
 void setup()
 {
-  Serial.begin(...);         // choose 9600 baud rate for serial monitor
+  Serial.begin(9600);         // choose 9600 baud rate for serial monitor
 
-  pinMode(LED, ...);       // initialize the LED pin as an output
-  pinMode(..., ...);   // initialize the waterPin as an input
-  pinMode(..., ...);    // initialize the linePin as an input
+  pinMode(LED, OUTPUT);       // initialize the LED pin as an output
+  pinMode(waterPin, INPUT);   // initialize the waterPin as an input
+  pinMode(linePin, INPUT);    // initialize the linePin as an input
   myServo.attach(servoPin);   // attaches the servo on servoPin to the servo object
 }
 
 /*
     Main loop function for program execution. Calls all the module functions.
+    ChainableRGB amd buzzer are enabled by the switch.
 
     @param
     @return null
 */
 void loop()
 {
-  delay(...);   // delay by 200ms
+  delay(200);   // delay by 200ms
   servoControl();
   controlLED();
   lineFinder();
@@ -64,12 +59,14 @@ void loop()
 */
 void servoControl()
 {
+  // set servo position depending on the presence of line
+
   if (black && pos <= FULL_SERVO_ANGLE)
   {
-    ...;   // increase servo position by 5 degrees
+    pos += 5;   // increase servo position by 5 degrees
   } else if (!black && pos >= 0)
   {
-    ...   // decrease servo position by 5 degrees
+    pos -= 5;   // decrease servo position by 5 degrees
   }
 
   myServo.write(pos);
@@ -101,9 +98,9 @@ void controlLED()
 {
   if (black)
   {
-    ...   // switch off LED
+    digitalWrite(LED, LOW);   // switch off LED
   } else {
-    ...  // switch on LED
+    digitalWrite(LED, HIGH);  // switch on LED
   }
 }
 
@@ -115,13 +112,13 @@ void controlLED()
 */
 void lineFinder()
 {
-  if (digitalRead(...) == HIGH)
+  if (digitalRead(linePin) == HIGH)
   {
     Serial.println("black");
-    black = ...;
+    black = true;
   } else {
     Serial.println("white");
-    black = ...;
+    black = false;
   }
 }
 
@@ -133,8 +130,8 @@ void lineFinder()
 */
 void waterSensor()
 {
-  dry = digitalRead(...);
-  if (...)
+  dry = digitalRead(waterPin);
+  if (dry)
   {
     Serial.println("Water sensor is DRY");
   } else {

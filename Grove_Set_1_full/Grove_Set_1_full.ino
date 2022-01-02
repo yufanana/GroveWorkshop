@@ -16,9 +16,9 @@
 
 // set pin numbers
 #define NUM_LEDS  1   // number of LEDs chained together
-#define buttonPin ...   // number of the pushbutton pin
-#define buzzerPin ...  // number of the buzzer pin
-#define switchPin ...   // number of the switch pin
+#define buttonPin 2   // number of the pushbutton pin
+#define buzzerPin 3   // number of the buzzer pin
+#define switchPin 6   // number of the switch pin
 
 // set helpful values
 #define FULL_SERVO_ANGLE 150  // full value of the servo is 150 degrees
@@ -39,12 +39,12 @@ ChainableLED leds(7, 8, NUM_LEDS);
 */
 void setup()
 {
-  Serial.begin(...);       // choose 9600 baud rate for serial monitor
+  Serial.begin(9600);       // choose 9600 baud rate for serial monitor
 
   leds.init();              // ChainableRGB
-  pinMode(buzzerPin, ...);    // initialize the buzzer pin as an output
-  pinMode(..., ...);     // initialize the pushbutton pin as an input
-  pinMode(..., ...);     // initialize the switch pin as an input
+  pinMode(buzzerPin, OUTPUT);    // initialize the buzzer pin as an output
+  pinMode(buttonPin, INPUT);     // initialize the pushbutton pin as an input
+  pinMode(switchPin, INPUT);     // initialize the switch pin as an input
 }
 
 /*
@@ -56,17 +56,17 @@ void setup()
 */
 void loop()
 {
-  switchState = ...;   // read switch pin value
+  switchState = digitalRead(switchPin);   // read switch pin value
   if (switchState)
   {
-    chainableRGB(...);                    // set LED brightness to 0.5
+    chainableRGB(0.5);                    // set LED brightness to 0.5
     push_buzzer();
   } else {
-    chainableRGB(...);                      // set LED brightness to 0.5
+    chainableRGB(0);                      // set LED brightness to 0.5
   }
 
   Serial.print("switchState:");
-  Serial.println(...);            // print the value of switchState
+  Serial.println(switchState);            // print the value of switchState
 }
 
 
@@ -85,25 +85,25 @@ void chainableRGB(float lightness)
   for (byte i = 0; i < NUM_LEDS; i++)
     leds.setColorHSL(i, hue, 1.0, lightness);
 
-  delay(...);   // delay for 500 ms
+  delay(500);   // delay for 500 ms
 
   // change the hue value during each main loop
   if (up)
   {
-    ...   // increase hue value by 0.025
+    hue += 0.025;   // increase hue value by 0.025
   } else {
-    ...   // decrease hue value by 0.025
+    hue -= 0.025;   // decrease hue value by 0.025
   }
 
   if (hue >= 1.0 && up)             // if hue exceeds 1 and is still going up
   {
-    ...                     // change the arithmetic operation on hue to subtraction
+    up = false;                     // change the arithmetic operation on hue to subtraction
   } else if (hue <= 0.0 && !up) {   // if hue goes below 0 and is still going down
-    ...                      // change the arithmetic operation on hue to addition
+    up = true;                      // change the arithmetic operation on hue to addition
   }
 
   Serial.print("hue:");
-  Serial.println(...);    // print the value of hue
+  Serial.println(hue);    // print the value of hue
 }
 
 /*
@@ -114,13 +114,13 @@ void chainableRGB(float lightness)
 */
 void push_buzzer()
 {
-  buttonState = ...; // read the state of buttonPin
+  buttonState = digitalRead(buttonPin); // read the state of buttonPin
 
-  if (...)              // check if the pushbutton is pressed
+  if (buttonState == HIGH)              // check if the pushbutton is pressed
   {
-    ...      // turn buzzer on
+    digitalWrite(buzzerPin, HIGH);      // turn buzzer on
   } else {
-    ...       // turn buzzer off
+    digitalWrite(buzzerPin, LOW);       // turn buzzer off
   }
 
   Serial.print("buttonState:");

@@ -9,9 +9,9 @@
 #include <Servo.h>
 
 // set pin numbers
-#define LED ...                   // number of the LED pin
-#define servoPin ...              // number of the servo pin
-#define ROTARY_ANGLE_SENSOR ...  // number of the rotary angle sensor pin
+#define LED 3                   // number of the LED pin
+#define servoPin 6              // number of the servo pin
+#define ROTARY_ANGLE_SENSOR A3  // number of the rotary angle sensor pin
 
 // set helpful values
 #define FULL_ROT_ANGLE 300      // full value of the rotary angle is 300 degrees
@@ -37,10 +37,10 @@ Servo myServo;  // create servo object to control a servo
 */
 void setup()
 {
-  Serial.begin(...);       // choose 9600 baud rate for serial monitor
+  Serial.begin(9600);       // choose 9600 baud rate for serial monitor
   
-  pinMode(ROTARY_ANGLE_SENSOR, ...);   // initialize the rotary angle pin as an input
-  pinMode(..., ...);                  // initialize the LED pin as an output
+  pinMode(ROTARY_ANGLE_SENSOR, INPUT);   // initialize the rotary angle pin as an input
+  pinMode(LED, OUTPUT);                  // initialize the LED pin as an output
   myServo.attach(servoPin);              // attaches the servo on servoPin to the servo object
 }
 
@@ -53,8 +53,8 @@ void setup()
 void loop()
 {
   degrees = rotarySensor();   // global degrees variable
-  controlLED(...);
-  servoControl(...);
+  controlLED(degrees);
+  servoControl(degrees);
 }
 
 /*
@@ -65,9 +65,8 @@ void loop()
 */
 void servoControl(float degrees)
 {
-  // map sensor value from 0-FULL_ROT_ANGLE to 0-FULL_SERVO_ANGLE
-  pos = map(degrees, 0, FULL_ROT_ANGLE, 0, FULL_SERVO_ANGLE);   
-  myServo.write(...);
+  pos = map(degrees, 0, FULL_ROT_ANGLE, 0, FULL_SERVO_ANGLE);
+  myServo.write(pos);
 
   //  Sample code to rotate servo slowly
   //  Serial.print("pos:");
@@ -94,7 +93,7 @@ void servoControl(float degrees)
 float rotarySensor()
 {
   float degrees;      // local degrees variable
-  sensor_value = ...;    // read value on the rotary angle sensor
+  sensor_value = analogRead(ROTARY_ANGLE_SENSOR);    // read value on the rotary angle sensor
   voltage = (float)sensor_value * ADC_REF / 1023;
   degrees = (voltage * FULL_ROT_ANGLE) / GROVE_VCC;
 
@@ -115,8 +114,8 @@ float rotarySensor()
 void controlLED(float degrees)
 {
   // map sensor value from 0-FULL_ROT_ANGLE to 0-255
-  brightness = map(degrees, ..., ..., ..., ...);   
-  analogWrite(..., ...);   // set LED to the calculated brightness value
+  brightness = map(degrees, 0, FULL_ROT_ANGLE, 0, 255);
+  analogWrite(LED, brightness);   // set LED to the calculated brightness value
 
   //  Serial.print("brightness:");
   //  Serial.println(brightness);

@@ -10,10 +10,10 @@
 #include <math.h>
 
 // set pin numbers
-#define LED ...         // number of the LED pin
-#define lightPin ...   // number of the light sensor pin
-#define servoPin ...   // number of the servo pin
-#define tempPin ...    // number of the temperature pin
+#define LED 3         // number of the LED pin
+#define lightPin A0   // number of the light sensor pin
+#define servoPin 6    // number of the servo pin
+#define tempPin A1    // number of the temperature pin
 
 // set helpful values
 #define FULL_SERVO_ANGLE 150  //full value of the servo is 150 degrees
@@ -36,10 +36,10 @@ Servo myServo;  // create servo object to control a servo
 */
 void setup()
 {
-  Serial.begin(...);         // choose 9600 baud rate for serial monitor
+  Serial.begin(9600);         // choose 9600 baud rate for serial monitor
   
-  pinMode(LED, ...);       // initialize the LED pin as an output
-  pinMode(..., ...);   // initialize the light sensor pin as an input
+  pinMode(LED, OUTPUT);       // initialize the LED pin as an output
+  pinMode(lightPin, INPUT);   // initialize the light sensor pin as an input
   myServo.attach(servoPin);   // attaches the servo on servoPin to the servo object
 }
 
@@ -56,7 +56,7 @@ void loop()
 
   controlLED();
   servoControl();
-  delay(...);   // delay by 200ms
+  delay(200);   // delay by 200ms
 }
 
 /*
@@ -73,10 +73,10 @@ void servoControl()
   
   if (light > MAX_LIGHT_VALUE / 2 && pos <= FULL_SERVO_ANGLE)
   {
-    ...;       // increase servo position by 5 
+    pos += 5;       // increase servo position by 5 
   } else if (light < MAX_LIGHT_VALUE / 2 && pos >= 0)
   {
-    ...       // decrease servo position by 5 
+    pos -= 5;       // decrease servo position by 5 
   }
   myServo.write(pos);
 
@@ -107,9 +107,9 @@ void controlLED()
 {
   if (light > MAX_LIGHT_VALUE / 2)
   {
-    ...     // switch off LED
+    digitalWrite(LED, LOW);     // switch off LED
   } else {
-    ...    // switch on LED
+    digitalWrite(LED, HIGH);    // switch on LED
   }
 }
 
@@ -121,7 +121,7 @@ void controlLED()
 */
 void readLight()
 {
-  ... = ...;   // read the light sensor pin
+  light = analogRead(lightPin);   // read the light sensor pin
   
   //  Serial.println(light);
 }
@@ -134,7 +134,7 @@ void readLight()
 */
 void readTemp()
 {
-  int a = ...;    // read the temperature sensor pin
+  int a = analogRead(tempPin);    // read the temperature sensor pin
 
   float R = 1023.0 / a - 1.0;
   R = R0 * R;
@@ -143,7 +143,7 @@ void readTemp()
   float temperature = 1.0 / (log(R / R0) / B + 1 / 298.15) - 273.15;
 
   Serial.print("temperature = ");
-  Serial.println(...);
+  Serial.println(temperature);
 
-  delay(...);   // delay by 100 ms
+  delay(100);   // delay by 100 ms
 }

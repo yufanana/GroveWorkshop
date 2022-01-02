@@ -5,13 +5,14 @@
    Servo (D6): digital output
 */
 
+// import libraries
 #include <Servo.h>
 
 // set pin numbers
-#define LED ...         // number of the LED pin
-#define servoPin ...    // numer of the servo pin
-#define stickPin0 ...  // number of joystock pin0
-#define stickPin1 ...  // number of joystock pin1
+#define LED 2         // number of the LED pin
+#define servoPin 6    // number of the servo pin
+#define stickPin0 A0  // number of joystock pin0
+#define stickPin1 A1  // number of joystock pin1
 
 // set helpful values
 #define FULL_SERVO_ANGLE 150  //full value of the servo is 150 degrees
@@ -33,11 +34,11 @@ Servo myServo;  // create servo object to control a servo
 */
 void setup()
 {
-  Serial.begin(...);           // choose 9600 baud rate for serial monitor
-  
-  pinMode(LED, ...);         // initialize the LED pin as an output
-  pinMode(..., ...);    // initialize stickPin0 as an input
-  pinMode(..., ...);    // initialize stickPin1 as an input
+  Serial.begin(9600);           // choose 9600 baud rate for serial monitor
+
+  pinMode(LED, OUTPUT);         // initialize the LED pin as an output
+  pinMode(stickPin0, INPUT);    // initialize stickPin0 as an input
+  pinMode(stickPin1, INPUT);    // initialize stickPin1 as an input
   myServo.attach(servoPin);     // attaches the servo on servoPin to the servo object
 }
 
@@ -49,12 +50,12 @@ void setup()
 */
 void loop()
 {
-  delay(...);  // delay by 1500ms
+  delay(1500);  // delay by 1500ms
   x, y = readJoystick();
 
-  controlLED(...);
+  controlLED(y);
   delay(200);
-  servoControl(...);
+  servoControl(y);
 }
 
 /*
@@ -68,13 +69,13 @@ void servoControl(int y)
   //Serial.println(y);
   if (y > 20 && pos <= FULL_SERVO_ANGLE)
   {
-    ...;       // increase servo position by 5 degrees
+    pos += 5;       // increase servo position by 5 degrees
   } else if (y < -20 && pos >= 0)
   {
-    ...;       // decrease servo position by 5 degrees
+    pos -= 5;       // decrease servo position by 5 degrees
   }
   myServo.write(pos);
-  
+
   //Serial.println(pos);
 
   //  Serial.print("pos:");
@@ -102,9 +103,9 @@ void controlLED(int y)
 {
   if (y > 20)
   {
-    ...    // switch on the LED
+    digitalWrite(LED, HIGH);    // switch on the LED
   } else {
-    ...     // switch off the LED
+    digitalWrite(LED, LOW);     // switch off the LED
   }
 }
 
@@ -117,12 +118,12 @@ void controlLED(int y)
 */
 int readJoystick()
 {
-  int stickValue0 = ...;      // read the value on stickPin0
-  int ...      // read the value on stickPin1
+  int stickValue0 = analogRead(stickPin0);      // read the value on stickPin0
+  int stickValue1 = analogRead(stickPin1);      // read the value on stickPin1
 
   // map stickValue from STICK_MIN-STICK_MAX to -100 - 100
-  int x = map(stickValue0, ..., ..., ..., ...);
-  int y = map(stickValue1, ..., ..., ..., ...);
+  int x = map(stickValue0, STICK_MIN, STICK_MAX, -100, 100);
+  int y = map(stickValue1, STICK_MIN, STICK_MAX, -100, 100);
 
   //  Serial.print("(A0,A1) : ");
   //  Serial.print(stickValue0);
@@ -134,5 +135,5 @@ int readJoystick()
   //  Serial.print(",");
   //  Serial.println(y);
 
-  return ..., ...;
+  return x, y;
 }
