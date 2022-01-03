@@ -1,6 +1,9 @@
 # GroveWorkshop
 Sample Arduino code with Grove modules for EPD IAP Workshop Jan 2022
 
+Author: __*yufanana*__
+____
+
 *__Happy New Year!! :D__*
 
 1. The Grove sensors/modules available have been split up into the 6 sets. Please refer to the top of the file for the pin allocation.
