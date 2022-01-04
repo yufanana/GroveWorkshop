@@ -16,6 +16,8 @@
 
 // set pin numbers
 #define NUM_LEDS  1   // number of LEDs chained together
+#define ledPin0 10
+#define ledPin1 11
 #define buttonPin 2   // number of the pushbutton pin
 #define buzzerPin 3   // number of the buzzer pin
 #define switchPin 6   // number of the switch pin

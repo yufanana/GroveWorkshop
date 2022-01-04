@@ -8,10 +8,10 @@
 #include <Servo.h>
 
 // set pin numbers
-#define LED ...         // number of the LED pin
+#define LED 2         // number of the LED pin
 #define servoPin ...    // numer of the servo pin
-#define stickPin0 ...  // number of joystock pin0
-#define stickPin1 ...  // number of joystock pin1
+#define stickPin0 A0  // number of joystock pin0
+#define stickPin1 A1  // number of joystock pin1
 
 // set helpful values
 #define FULL_SERVO_ANGLE 150  //full value of the servo is 150 degrees
@@ -35,9 +35,10 @@ void setup()
 {
   Serial.begin(...);           // choose 9600 baud rate for serial monitor
   
-  pinMode(LED, ...);         // initialize the LED pin as an output
-  pinMode(..., ...);    // initialize stickPin0 as an input
+  pinMode(LED, OUTPUT);         // initialize the LED pin as an output
+  pinMode(stickPin0 , INPUT);    // initialize stickPin0 as an input
   pinMode(..., ...);    // initialize stickPin1 as an input
+  
   myServo.attach(servoPin);     // attaches the servo on servoPin to the servo object
 }
 

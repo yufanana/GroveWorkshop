@@ -3,7 +3,7 @@
    Pushbutton (D2): digital input
    Grove Buzzer (D3): digital output
    Switch (D6): digital input
-   ChainableRGB (D7): digital output
+   ChainableRGB (D10 D11): digital output
 
    Please download the library 'ChainableLED - master' from the Grove GitHub.
    Google search for 'grove chainableLED github pjpmarques'
@@ -16,6 +16,8 @@
 
 // set pin numbers
 #define NUM_LEDS  1   // number of LEDs chained together
+#define ledPin0 10
+#define ledPin1 11
 #define buttonPin ...   // number of the pushbutton pin
 #define buzzerPin ...  // number of the buzzer pin
 #define switchPin ...   // number of the switch pin
