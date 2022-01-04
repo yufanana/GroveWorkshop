@@ -12,6 +12,7 @@
 
 // import libraries
 #include <ChainableLED.h>
+#include <Servo.h>
 #include <math.h>
 
 // set pin numbers
@@ -31,7 +32,7 @@ boolean up = true;            // to determine hue addition or subtraction
 int buttonState = 0;          // to read the pushbutton status
 int switchState = 0;          // to read the switch status
 
-ChainableLED leds(7, 8, NUM_LEDS);
+ChainableLED leds(ledPin0, ledPin1, NUM_LEDS);
 
 /*
     Initial set up function to set pin modes and serial monitor.
@@ -140,11 +141,11 @@ void servoControl()
   for (pos = 0; pos <= FULL_SERVO_ANGLE; pos += 1) { // goes from 0 degrees to 180 degrees
     // in steps of 1 degree
     myServo.write(pos);              // tell servo to go to position in variable 'pos'
-    delay(15);                       // waits 15ms for the servo to reach the position
+    delay(...);                       // waits 15ms for the servo to reach the position
   }
   for (pos = FULL_SERVO_ANGLE; pos >= 0; pos -= 1) { // goes from 180 degrees to 0 degrees
     myServo.write(pos);              // tell servo to go to position in variable 'pos'
-    delay(15);                       // waits 15ms for the servo to reach the position
+    delay(...);                       // waits 15ms for the servo to reach the position
   }
   
   Serial.print("pos:");

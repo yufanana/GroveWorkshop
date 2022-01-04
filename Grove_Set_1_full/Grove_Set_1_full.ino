@@ -12,6 +12,7 @@
 
 // import libraries
 #include <ChainableLED.h>
+#include <Servo.h>
 #include <math.h>
 
 // set pin numbers
@@ -31,7 +32,7 @@ boolean up = true;            // to determine hue addition or subtraction
 int buttonState = 0;          // to read the pushbutton status
 int switchState = 0;          // to read the switch status
 
-ChainableLED leds(7, 8, NUM_LEDS);
+ChainableLED leds(ledPin0, ledPin1, NUM_LEDS);
 
 /*
     Initial set up function to set pin modes and serial monitor.
