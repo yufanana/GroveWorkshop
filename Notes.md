@@ -10,6 +10,7 @@ ____
 3.  [General Notes for Arduino](#3)<br>
     3.1 [Serial Monitor/Plotter](#3.1) <br>
     3.2 [Add Libraries](#3.1) <br>
+4. [EPD Shield](#4)<br>
 
 ## 1. Modules Used in Each Set <a name="1"></a>
 [Go to top](#top)
@@ -22,7 +23,7 @@ Set 3: servo, LED socket kit, line finder, water sensor <br>
 
 Set 4: servo, LED socket kit, thumb joystick <br>
 
-Set 5: servo, tilt sensor, vibration sensor <br>
+Set 5: servo, tilt sensor, vibration sensor, magnetic switch <br>
 
 Set 6: servo, LED socket kit, light sensor <br>
 
@@ -93,17 +94,33 @@ Use `&` and `|` to evaluate all expressiosn.
 - `Serial.println(“John”)`
     - prints new line at the end
 
+Upload empty program to stop the program. <br>
+
+__Wiring__<br>
+Red &rarr; 5V / VCC <br> 
+Brown &rarr; GND / Ground <br> 
+Yellow &rarr; Signal <br> 
+
 ### 3.1 Serial Monitor/Plotter<a name="3.1"></a>
 [Go to top](#top)
 
 In the Arduino IDE, go to *Tools > Serial Monitor/Plotter*
 
 Serial Monitor
-![Serial Monitor](serial-monitor.png)
-
+![Serial Monitor](serial-monitor.PNG)
 Serial Plotter
-![Serial Plotter](serial-plotter.png)
+![Serial Plotter](serial-plotter.PNG)
 
 ### 3.2 Add Libraries <a name="3.1"></a>
+[Go to top](#top)
+
 - Download the .ZIP file from GitHub <br>
 - Sketch > Include Library > Add .ZIP Library ... > Select downloaded .ZIP file
+
+
+### 4 EPD Shield <a name="4"></a>
+[Go to top](#top)
+
+- Potentiometer / Rotary Encoder (A0)
+- 2 LEDs (D7 and D8)
+- 2 buttons (D1 and D2)
