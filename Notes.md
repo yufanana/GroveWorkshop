@@ -106,10 +106,11 @@ Yellow &rarr; Signal <br>
 
 In the Arduino IDE, go to *Tools > Serial Monitor/Plotter*
 
-Serial Monitor
-![Serial Monitor](serial-monitor.PNG)
-Serial Plotter
-![Serial Plotter](serial-plotter.PNG)
+Serial Monitor <br>
+<img src="serial-monitor.PNG" alt="serial monitor" width="500"/>
+
+Serial Plotter <br>
+<img src="serial-plotter.PNG" alt="serial plotter" width="500"/>
 
 ### 3.2 Add Libraries <a name="3.1"></a>
 [Go to top](#top)
