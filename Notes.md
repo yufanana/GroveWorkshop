@@ -94,6 +94,15 @@ Use `&` and `|` to evaluate all expressiosn.
 - `Serial.println(“John”)`
     - prints new line at the end
 
+After writing the program, click on the check icon to compile the code. <br>
+It will output errors if any for debugging.
+
+Before uploading the program, ensure that the right board and right computer port has been selected. <br>
+*Tools > Board: Arduino Uno* <br>
+*Tools > Port:*
+
+Click on the right arrow icon to upload the program to the board. <br>
+
 Upload empty program to stop the program. <br>
 
 __Wiring__<br>
